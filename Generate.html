@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEST LA QUOI ? LA BDD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .espace-item {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .espace-item select,
+        .espace-item input {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .espace-item button {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .espace-item button:hover {
+            background-color: #c82333;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>CEST LA QUOI ? LA BDD</h1>
+        <form id="realEstateForm">
+            <div class="form-group">
+                <label for="proprioSelect">Sélectionner un propriétaire :</label>
+                <select id="proprioSelect" required>
+                    <option value="">--Choisissez un propriétaire--</option>
+                    <option value="61">AROUSSI BENTATA Adam</option>
+                    <option value="36">AZOUG Kylian</option>
+                    <option value="15">BARBERIS Alexis</option>
+                    <option value="72">BEN GADHA Imen</option>
+                    <option value="34">BENAHMED Younes</option>
+                    <option value="74">BOUDHIB Mohamed-Amine</option>
+                    <option value="66">BOUGHERARA Adam</option>
+                    <option value="52">CLOT-GODARD Kenji</option>
+                    <option value="97">CONTRUCCI Lou</option>
+                    <option value="69">GIUSIANO Eloïse</option>
+                    <option value="21">HELALI Amin</option>
+                    <option value="82">HERNANDEZ Loïc</option>
+                    <option value="67">KOLIAI Hamza</option>
+                    <option value="59">LAURIOL-TORCQ Mathis</option>
+                    <option value="49">LEPAPE Lucas</option>
+                    <option value="46">MAILHÉ Gustin</option>
+                    <option value="16">MARCUS William</option>
+                    <option value="45">MEJEAN Oriane</option>
+                    <option value="39">MEKIDICHE Idris</option>
+                    <option value="38">RATIANANAHARY Karmen</option>
+                    <option value="99">RIBBE Jules</option>
+                    <option value="47">RINALDI Antoine</option>
+                    <option value="29">ROMBI Matis</option>
+                    <option value="9">STEFANOVITCH Ilann</option>
+                    <option value="105">THOMAS Luc</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="categorieSelect">Catégorie du bien :</label>
+                <select id="categorieSelect" required onchange="updatePrice()">
+                    <option value="">--Choisissez une catégorie--</option>
+                    <option value="MAISON DE VILLE">Maison de ville</option>
+                    <option value="VILLA">Villa</option>
+                    <option value="APPARTEMENT">Appartement</option>
+                    <option value="CHALET">Chalet</option>
+                    <option value="GITE">Gîte</option>
+                    <option value="CABANE">Cabane</option>
+                    <option value="CHATEAU">Château</option>
+                    <option value="MANOIR">Manoir</option>
+                    <option value="LOFT">Loft</option>
+                    <option value="MAISON DE CAMPAGNE">Maison de campagne</option>
+                    <option value="MOBIL HOME">Mobil Home</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="typeSelect">Type du bien :</label>
+                <select id="typeSelect" required>
+                    <option value="">--Choisissez un type--</option>
+                    <option value="STUDIO">Studio</option>
+                    <option value="T1">T1</option>
+                    <option value="T2">T2</option>
+                    <option value="T3">T3</option>
+                    <option value="T4">T4</option>
+                    <option value="T5">T5</option>
+                    <option value="T6">T6</option>
+                    <option value="T7">T7</option>
+                    <option value="T8">T8</option>
+                    <option value="T9">T9</option>
+                    <option value="T10">T10</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="villeInput">Ville :</label>
+                <input type="text" id="villeInput" required>
+            </div>
+
+            <div class="form-group">
+                <label for="prixInput">Prix :</label>
+                <input type="number" id="prixInput" value="200000" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="globalNumeroInput">Numéro global à ajouter aux IDs :</label>
+                <input type="number" id="globalNumeroInput" value="0">
+            </div>
+
+            <div class="form-group">
+                <label for="espaceContainer">Espaces du bien :</label>
+                <div id="espaceContainer">
+                    <div class="espace-item" data-ide="1">
+                        <select id="designationSelect1" required onchange="updateSuperficie(this)">
+                            <option value="">--Choisissez une désignation--</option>
+                            <option value="REZ DE CHAUSSEE">Rez de chaussée</option>
+                            <option value="ETAGE 1">Etage 1</option>
+                            <option value="ETAGE 2">Etage 2</option>
+                            <option value="ETAGE 4">Etage 4</option>
+                            <option value="ETAGE 5">Etage 5</option>
+                            <option value="SOUS-SOL 1">Sous-sol 1</option>
+                            <option value="SOUS SOL 1">Sous-sol 1</option>
+                            <option value="SOUS SOL 2">Sous-sol 2</option>
+                            <option value="SOUS SOL 3">Sous-sol 3</option>
+                            <option value="GRENIER">Grenier</option>
+                            <option value="JARDIN">Jardin</option>
+                            <option value="GARAGE">Garage</option>
+                            <option value="CUISINE">Cuisine</option>
+                            <option value="BALCON">Balcon</option>
+                            <option value="PIECE A VIVRE">Pièce à vivre</option>
+                            <option value="SALLE DE BAIN">Salle de bain</option>
+                            <option value="TOILETTE">Toilette</option>
+                            <option value="CHAMBRE">Chambre</option>
+                            <option value="SUITE PARENTAL">Suite parentale</option>
+                            <option value="BUREAU">Bureau</option>
+                            <option value="BUANDERIE">Buanderie</option>
+                            <option value="CELLIER">Cellier</option>
+                            <option value="CAVE">Cave</option>
+                            <option value="DRESSING">Dressing</option>
+                            <option value="VERANDA">Véranda</option>
+                            <option value="ATELIER">Atelier</option>
+                            <option value="PISCINE">Piscine</option>
+                            <option value="POULAILLER">Poulailler</option>
+                            <option value="TERRAIN DE JEU">Terrain de jeu</option>
+                            <option value="SERRE">Serre</option>
+                            <option value="POTAGER">Potager</option>
+                            <option value="TERASSE">Terrasse</option>
+                            <option value="BARBECUE">Barbecue</option>
+                            <option value="ETANG">Etang</option>
+                            <option value="BASSIN">Bassin</option>
+                            <option value="FONTAINE">Fontaine</option>
+                            <option value="MAISON DE VILLE">Maison de ville</option>
+                            <option value="VILLA">Villa</option>
+                            <option value="APPARTEMENT">Appartement</option>
+                            <option value="CHALET">Chalet</option>
+                            <option value="GITE">Gîte</option>
+                            <option value="CABANE">Cabane</option>
+                            <option value="CHATEAU">Château</option>
+                            <option value="MANOIR">Manoir</option>
+                            <option value="LOFT">Loft</option>
+                            <option value="MAISON DE CAMPAGNE">Maison de campagne</option>
+                            <option value="MOBIL HOME">Mobil Home</option>
+                        </select>
+                        <input type="number" id="superficieInput1" value="20" step="0.01" required>
+                        <select id="parentSelect1" required>
+                            <option value="">--Choisissez un espace parent--</option>
+                        </select>
+                        <button type="button" onclick="removeEspaceItem(this)">Supprimer</button>
+                    </div>
+                </div>
+                <button type="button" onclick="addEspaceItem()">Ajouter un espace</button>
+            </div>
+
+            <div class="button-group">
+                <button type="button" onclick="generateSQL()">Générer les requêtes SQL</button>
+                <button type="reset">Réinitialiser</button>
+            </div>
+
+            <div class="form-group">
+                <label for="sqlOutput">Requêtes SQL générées :</label>
+                <textarea id="sqlOutput" rows="10" readonly></textarea>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let espaceCounter = 1;
+
+        function addEspaceItem() {
+            espaceCounter++;
+            const espaceContainer = document.getElementById('espaceContainer');
+            const newEspaceItem = document.createElement('div');
+            newEspaceItem.className = 'espace-item';
+            newEspaceItem.setAttribute('data-ide', generateUniqueId());
+            newEspaceItem.innerHTML = `
+                <select id="designationSelect\${espaceCounter}" required onchange="updateSuperficie(this)">
+                    <option value="">--Choisissez une désignation--</option>
+                    <option value="REZ DE CHAUSSEE">Rez de chaussée</option>
+                    <option value="ETAGE 1">Etage 1</option>
+                    <option value="ETAGE 2">Etage 2</option>
+                    <option value="ETAGE 4">Etage 4</option>
+                    <option value="ETAGE 5">Etage 5</option>
+                    <option value="SOUS-SOL 1">Sous-sol 1</option>
+                    <option value="SOUS SOL 1">Sous-sol 1</option>
+                    <option value="SOUS SOL 2">Sous-sol 2</option>
+                    <option value="SOUS SOL 3">Sous-sol 3</option>
+                    <option value="GRENIER">Grenier</option>
+                    <option value="JARDIN">Jardin</option>
+                    <option value="GARAGE">Garage</option>
+                    <option value="CUISINE">Cuisine</option>
+                    <option value="BALCON">Balcon</option>
+                    <option value="PIECE A VIVRE">Pièce à vivre</option>
+                    <option value="SALLE DE BAIN">Salle de bain</option>
+                    <option value="TOILETTE">Toilette</option>
+                    <option value="CHAMBRE">Chambre</option>
+                    <option value="SUITE PARENTAL">Suite parentale</option>
+                    <option value="BUREAU">Bureau</option>
+                    <option value="BUANDERIE">Buanderie</option>
+                    <option value="CELLIER">Cellier</option>
+                    <option value="CAVE">Cave</option>
+                    <option value="DRESSING">Dressing</option>
+                    <option value="VERANDA">Véranda</option>
+                    <option value="ATELIER">Atelier</option>
+                    <option value="PISCINE">Piscine</option>
+                    <option value="POULAILLER">Poulailler</option>
+                    <option value="TERRAIN DE JEU">Terrain de jeu</option>
+                    <option value="SERRE">Serre</option>
+                    <option value="POTAGER">Potager</option>
+                    <option value="TERASSE">Terrasse</option>
+                    <option value="BARBECUE">Barbecue</option>
+                    <option value="ETANG">Etang</option>
+                    <option value="BASSIN">Bassin</option>
+                    <option value="FONTAINE">Fontaine</option>
+                    <option value="MAISON DE VILLE">Maison de ville</option>
+                    <option value="VILLA">Villa</option>
+                    <option value="APPARTEMENT">Appartement</option>
+                    <option value="CHALET">Chalet</option>
+                    <option value="GITE">Gîte</option>
+                    <option value="CABANE">Cabane</option>
+                    <option value="CHATEAU">Château</option>
+                    <option value="MANOIR">Manoir</option>
+                    <option value="LOFT">Loft</option>
+                    <option value="MAISON DE CAMPAGNE">Maison de campagne</option>
+                    <option value="MOBIL HOME">Mobil Home</option>
+                </select>
+                <input type="number" id="superficieInput\${espaceCounter}" value="20" step="0.01" required>
+                <select id="parentSelect\${espaceCounter}" required>
+                    <option value="">--Choisissez un espace parent--</option>
+                </select>
+                <button type="button" onclick="removeEspaceItem(this)">Supprimer</button>
+            `;
+            espaceContainer.appendChild(newEspaceItem);
+            updateParentSelectOptions();
+            updateSuperficie(newEspaceItem.querySelector('select[id^="designationSelect"]'));
+        }
+
+        function removeEspaceItem(button) {
+            const espaceItem = button.parentElement;
+            espaceItem.remove();
+            updateParentSelectOptions();
+        }
+
+        function generateSQL() {
+            const proprioSelect = document.getElementById('proprioSelect');
+            const categorieSelect = document.getElementById('categorieSelect');
+            const typeSelect = document.getElementById('typeSelect');
+            const villeInput = document.getElementById('villeInput');
+            const prixInput = document.getElementById('prixInput');
+            const globalNumeroInput = document.getElementById('globalNumeroInput');
+            const espaceContainer = document.getElementById('espaceContainer');
+            const sqlOutput = document.getElementById('sqlOutput');
+
+            const idP = proprioSelect.value;
+            const categorie = categorieSelect.value;
+            const type = typeSelect.value;
+            const ville = villeInput.value;
+            const prix = prixInput.value;
+            const globalNumero = parseInt(globalNumeroInput.value) || 0;
+
+            let sqlQueries = [];
+
+            // Generate BIEN insert query
+            const ideBien = generateUniqueId() + globalNumero;
+            sqlQueries.push(`
+                INSERT INTO BIEN (IdeBien, Categorie, Type, Idp, Ville, Prix)
+                VALUES (${ideBien}, '${categorie}', '${type}', ${idP}, '${ville}', ${prix});
+            `);
+
+            // Generate ESPACE insert queries
+            espaceContainer.querySelectorAll('.espace-item').forEach((item) => {
+                const designationSelect = item.querySelector('select[id^="designationSelect"]');
+                const superficieInput = item.querySelector('input[id^="superficieInput"]');
+                const parentSelect = item.querySelector('select[id^="parentSelect"]');
+
+                const designation = designationSelect.value;
+                const superficie = superficieInput.value;
+                const ide = parseInt(item.getAttribute('data-ide')) + globalNumero;
+
+                const iderattach = parseInt(parentSelect.value) + globalNumero || null;
+
+                sqlQueries.push(`
+                    INSERT INTO ESPACE (ide, Designation, Superficie, Iderattach)
+                    VALUES (${ide}, '${designation}', ${superficie}, ${iderattach});
+                `);
+            });
+
+            sqlOutput.value = sqlQueries.join('\n');
+        }
+
+        function generateUniqueId() {
+            return Math.floor(1000 + Math.random() * 9000);
+        }
+
+        function updateSuperficie(selectElement) {
+            const superficieInput = selectElement.parentElement.querySelector('input[id^="superficieInput"]');
+            const designation = selectElement.value;
+            let defaultSuperficie = 20;
+
+            switch (designation) {
+                case 'REZ DE CHAUSSEE':
+                case 'ETAGE 1':
+                case 'ETAGE 2':
+                case 'ETAGE 4':
+                case 'ETAGE 5':
+                case 'SOUS-SOL 1':
+                case 'SOUS SOL 1':
+                case 'SOUS SOL 2':
+                case 'SOUS SOL 3':
+                case 'GRENIER':
+                    defaultSuperficie = 50;
+                    break;
+                case 'JARDIN':
+                case 'GARAGE':
+                case 'CUISINE':
+                case 'BALCON':
+                case 'PIECE A VIVRE':
+                case 'SALLE DE BAIN':
+                case 'TOILETTE':
+                case 'CHAMBRE':
+                case 'SUITE PARENTAL':
+                case 'BUREAU':
+                case 'BUANDERIE':
+                case 'CELLIER':
+                case 'CAVE':
+                case 'DRESSING':
+                case 'VERANDA':
+                case 'ATELIER':
+                case 'PISCINE':
+                case 'POULAILLER':
+                case 'TERRAIN DE JEU':
+                case 'SERRE':
+                case 'POTAGER':
+                case 'TERASSE':
+                case 'BARBECUE':
+                case 'ETANG':
+                case 'BASSIN':
+                case 'FONTAINE':
+                    defaultSuperficie = 30;
+                    break;
+                case 'MAISON DE VILLE':
+                case 'VILLA':
+                case 'APPARTEMENT':
+                case 'CHALET':
+                case 'GITE':
+                case 'CABANE':
+                case 'CHATEAU':
+                case 'MANOIR':
+                case 'LOFT':
+                case 'MAISON DE CAMPAGNE':
+                case 'MOBIL HOME':
+                    defaultSuperficie = 100;
+                    break;
+                default:
+                    defaultSuperficie = 20;
+            }
+
+            superficieInput.value = defaultSuperficie;
+        }
+
+        function updatePrice() {
+            const categorieSelect = document.getElementById('categorieSelect');
+            const prixInput = document.getElementById('prixInput');
+            const categorie = categorieSelect.value;
+            let defaultPrix = 200000;
+
+            switch (categorie) {
+                case 'MAISON DE VILLE':
+                case 'VILLA':
+                    defaultPrix = 500000;
+                    break;
+                case 'APPARTEMENT':
+                    defaultPrix = 300000;
+                    break;
+                case 'CHALET':
+                case 'GITE':
+                case 'CABANE':
+                    defaultPrix = 200000;
+                    break;
+                case 'CHATEAU':
+                case 'MANOIR':
+                    defaultPrix = 1000000;
+                    break;
+                case 'LOFT':
+                case 'MAISON DE CAMPAGNE':
+                case 'MOBIL HOME':
+                    defaultPrix = 150000;
+                    break;
+                default:
+                    defaultPrix = 200000;
+            }
+
+            prixInput.value = defaultPrix;
+        }
+
+        function updateParentSelectOptions() {
+            const espaceItems = document.querySelectorAll('.espace-item');
+            espaceItems.forEach((item) => {
+                const parentSelect = item.querySelector('select[id^="parentSelect"]');
+                parentSelect.innerHTML = '<option value="">--Choisissez un espace parent--</option>';
+
+                espaceItems.forEach((otherItem) => {
+                    if (otherItem !== item) {
+                        const otherDesignationSelect = otherItem.querySelector('select[id^="designationSelect"]');
+                        const otherDesignation = otherDesignationSelect.value;
+                        const otherIde = otherItem.getAttribute('data-ide');
+                        if (otherDesignation) {
+                            const option = document.createElement('option');
+                            option.value = otherIde;
+                            option.textContent = otherDesignation;
+                            parentSelect.appendChild(option);
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
